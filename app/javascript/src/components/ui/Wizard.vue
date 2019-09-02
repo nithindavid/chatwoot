@@ -1,26 +1,38 @@
-
 <template>
-    <transition-group name="wizard-items" tag="div" class="wizard-box flex-child-shrink" :class="classObject">
-      <div class="item" v-for="item in items" v-bind:key="item" :class="{ active: isActive(item), over: isOver(item)  }">
-        <h3>{{item.title}}
-          <span class="completed" v-if="isOver(item)">
-            <i class="ion-checkmark"></i>
-          </span>
-        </h3>
-        <span class="step">
-          {{items.indexOf(item)+1}}
+  <transition-group
+    name="wizard-items"
+    tag="div"
+    class="wizard-box flex-child-shrink"
+    :class="classObject"
+  >
+    <div
+      v-for="item in items"
+      :key="item.title"
+      class="item"
+      :class="{ active: isActive(item), over: isOver(item) }"
+    >
+      <h3>
+        {{ item.title }}
+        <span v-if="isOver(item)" class="completed">
+          <i class="ion-checkmark"></i>
         </span>
-        <p>{{item.body}}</p>
-      </div>
-    </transition-group>
+      </h3>
+      <span class="step">
+        {{ items.indexOf(item) + 1 }}
+      </span>
+      <p>{{ item.body }}</p>
+    </div>
+  </transition-group>
 </template>
 
 <script>
 /* eslint no-console: 0 */
 export default {
   props: {
-    items: Array,
-    isFullwidth: Boolean,
+    items: {
+      type: Array,
+      default: () => [],
+    },
   },
 
   computed: {
